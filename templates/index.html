@@ -49,6 +49,14 @@
             const ambientTemp = document.getElementById('ambientTemp').value;
             const humidity = document.getElementById('humidity').value;
 
+            console.log("Sending data to server:", {
+                'Max': maxTemp,
+                'Min': minTemp,
+                'Average': avgTemp,
+                'Ambient': ambientTemp,
+                'Humidity': humidity
+            });
+
             fetch('/predict', {
                 method: 'POST',
                 headers: {
@@ -62,12 +70,18 @@
                     'Humidity': humidity
                 }),
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(data => {
                 document.getElementById('result').innerHTML = `<h3>Predicted PMI: ${data.prediction}</h3>`;
             })
             .catch((error) => {
                 console.error('Error:', error);
+                document.getElementById('result').innerHTML = `<h3>Error: ${error.message}</h3>`;
             });
         });
     </script>
