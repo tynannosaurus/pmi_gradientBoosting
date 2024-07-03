@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMI Predictor</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Post-Mortem Interval (PMI) Predictor</h1>
+        <form id="prediction-form">
+            <div class="form-group">
+                <label for="maxTemp">Max Temperature:</label>
+                <input type="number" class="form-control" id="maxTemp" required>
+            </div>
+            <div class="form-group">
+                <label for="minTemp">Min Temperature:</label>
+                <input type="number" class="form-control" id="minTemp" required>
+            </div>
+            <div class="form-group">
+                <label for="avgTemp">Average Temperature:</label>
+                <input type="number" class="form-control" id="avgTemp" required>
+            </div>
+            <div class="form-group">
+                <label for="ambientTemp">Ambient Temperature:</label>
+                <input type="number" class="form-control" id="ambientTemp" required>
+            </div>
+            <div class="form-group">
+                <label for="humidity">Humidity:</label>
+                <input type="number" class="form-control" id="humidity" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Predict PMI</button>
+        </form>
+        <div id="result" class="mt-4"></div>
+    </div>
+
+    <script>
+        document.getElementById('prediction-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const maxTemp = document.getElementById('maxTemp').value;
+            const minTemp = document.getElementById('minTemp').value;
+            const avgTemp = document.getElementById('avgTemp').value;
+            const ambientTemp = document.getElementById('ambientTemp').value;
+            const humidity = document.getElementById('humidity').value;
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'Max': maxTemp,
+                    'Min': minTemp,
+                    'Average': avgTemp,
+                    'Ambient': ambientTemp,
+                    'Humidity': humidity
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerHTML = `<h3>Predicted PMI: ${data.prediction}</h3>`;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
