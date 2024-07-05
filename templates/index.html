@@ -48,7 +48,7 @@
             </div>
             <div class="form-group">
                 <label for="humidity">Humidity:</label>
-                <input type="number" class="form-control" id="humidity">
+                <input type="number" class="form-control" id="humidity" step="0.1" required>
             </div>
             <button type="submit" class="btn btn-primary">Predict PMI</button>
         </form>
@@ -93,8 +93,8 @@
             })
             .then(data => {
                 document.getElementById('result').innerHTML = `
-                    <h3>Predicted PMI: ${data.prediction} days</h3>
-                    <h4>Prediction Interval: [${data.prediction_interval.lower_bound} days, ${data.prediction_interval.upper_bound} days]</h4>
+                    <h3>Predicted PMI: ${data.prediction[0]} days</h3>
+                    <h4>Prediction Interval: [${data.prediction_interval.lower_bound[0]} days, ${data.prediction_interval.upper_bound[0]} days]</h4>
                 `;
             })
             .catch((error) => {
