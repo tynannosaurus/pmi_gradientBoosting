@@ -9,6 +9,18 @@
         body {
             margin: 20px;
         }
+        fieldset {
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        legend {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #007bff;
+            width: auto;
+            padding: 0 10px;
+        }
     </style>
 </head>
 <body>
@@ -19,24 +31,24 @@
                 <legend>Thermal Data</legend>
                 <div class="form-group">
                     <label for="maxTemp">Max Temperature:</label>
-                    <input type="number" class="form-control" id="maxTemp" required>
+                    <input type="number" class="form-control" id="maxTemp" step="0.1" required>
                 </div>
                 <div class="form-group">
                     <label for="minTemp">Min Temperature:</label>
-                    <input type="number" class="form-control" id="minTemp" required>
+                    <input type="number" class="form-control" id="minTemp" step="0.1" required>
                 </div>
                 <div class="form-group">
                     <label for="avgTemp">Average Temperature:</label>
-                    <input type="number" class="form-control" id="avgTemp" required>
+                    <input type="number" class="form-control" id="avgTemp" step="0.1" required>
                 </div>
             </fieldset>
             <div class="form-group">
                 <label for="ambientTemp">Ambient Temperature:</label>
-                <input type="number" class="form-control" id="ambientTemp" required>
+                <input type="number" class="form-control" id="ambientTemp" step="0.1" required>
             </div>
             <div class="form-group">
                 <label for="humidity">Humidity:</label>
-                <input type="number" class="form-control" id="humidity" required>
+                <input type="number" class="form-control" id="humidity">
             </div>
             <button type="submit" class="btn btn-primary">Predict PMI</button>
         </form>
