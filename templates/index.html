@@ -10,14 +10,14 @@
             margin: 20px;
         }
         fieldset {
-            border: 2px solid #007bff;
+            border: 2px solid #000000;
             border-radius: 5px;
             padding: 10px;
         }
         legend {
             font-size: 1.2em;
             font-weight: bold;
-            color: #007bff;
+            color: #000000;
             width: auto;
             padding: 0 10px;
         }
@@ -31,24 +31,24 @@
                 <legend>Thermal Data</legend>
                 <div class="form-group">
                     <label for="maxTemp">Max Temperature:</label>
-                    <input type="number" class="form-control" id="maxTemp" step="0.1" required>
+                    <input type="number" class="form-control" id="maxTemp" step="0.01" required>
                 </div>
                 <div class="form-group">
                     <label for="minTemp">Min Temperature:</label>
-                    <input type="number" class="form-control" id="minTemp" step="0.1" required>
+                    <input type="number" class="form-control" id="minTemp" step="0.01" required>
                 </div>
                 <div class="form-group">
                     <label for="avgTemp">Average Temperature:</label>
-                    <input type="number" class="form-control" id="avgTemp" step="0.1" required>
+                    <input type="number" class="form-control" id="avgTemp" step="0.01" required>
                 </div>
             </fieldset>
             <div class="form-group">
                 <label for="ambientTemp">Ambient Temperature:</label>
-                <input type="number" class="form-control" id="ambientTemp" step="0.1" required>
+                <input type="number" class="form-control" id="ambientTemp" step="0.01" required>
             </div>
             <div class="form-group">
                 <label for="humidity">Humidity:</label>
-                <input type="number" class="form-control" id="humidity" step="0.1" required>
+                <input type="number" class="form-control" id="humidity" step="0.01" required>
             </div>
             <button type="submit" class="btn btn-primary">Predict PMI</button>
         </form>
@@ -92,10 +92,7 @@
                 return response.json();
             })
             .then(data => {
-                document.getElementById('result').innerHTML = `
-                    <h3>Predicted PMI: ${data.prediction[0]} days</h3>
-                    <h4>Prediction Interval: [${data.prediction_interval.lower_bound[0]} days, ${data.prediction_interval.upper_bound[0]} days]</h4>
-                `;
+                document.getElementById('result').innerHTML = `<h3>Predicted PMI: ${data.prediction} days</h3>`;
             })
             .catch((error) => {
                 console.error('Error:', error);
